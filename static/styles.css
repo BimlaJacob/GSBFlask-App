@@ -1,0 +1,109 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo h1 {
+    font-family: 'Lucida Calligraphy', cursive;
+    font-size: 3em;
+    color: #800000;
+}
+
+.hero {
+    background-image: url('https://www.weddingwire.com/wedding-ideas/hanging-wedding-dress-photo-ideas-33'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    height: 100vh; /* Full viewport height */
+}
+
+    .hero h2 {
+        font-size: 3em;
+    }
+
+    .hero p {
+        font-size: 1.5em;
+    }
+
+.btn {
+    background: #ff69b4; /* Pink color */
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background 0.3s;
+    margin-top: 20px; /* Adds space between elements */
+    display: inline-block; /* Ensures proper button display */
+}
+
+    .btn:hover {
+        background: #ff1493; /* Darker pink on hover */
+    }
+
+/* Foreground content styles */
+.foreground {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centers the content vertically */
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+    .foreground
+
+{
+    height: calc(100vh - 50px); /* Adjust based on header/footer height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    margin-top: 20px; /* Ensure proper spacing */
+}
+
+}
+
+    .foreground .button {
+        font-size: 1.5rem;
+        font-family: 'Lucida Calligraphy', cursive;
+        background-color: pink;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-transform: capitalize;
+        cursor: pointer;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        margin-top: 20px; /* Adds spacing between elements */
+    }
+
+        .foreground .button:hover {
+            background-color: #ff99cc;
+            transform: scale(1.05);
+        }
+
+footer {
+    background: #800000;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
