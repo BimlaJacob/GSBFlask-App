@@ -22,8 +22,10 @@ app = Flask(__name__, static_folder='static')
 
 # Configure the database
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    "mssql+pyodbc://Bimla-Asus\\SQLEXPRESS/GlassSlipperBridal?driver=ODBC+Driver+17+for+SQL+Server"
+    "mssql+pyodbc://remoteuser:password@39.39.79.70:1433/GlassSlipperBridal?driver=ODBC+Driver+17+for+SQL+Server"
 )
+
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'cinderella'  # Required for Flask-Admin
 
