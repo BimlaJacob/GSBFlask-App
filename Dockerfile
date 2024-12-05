@@ -5,16 +5,13 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED 1
 ENV LANG C.UTF-8
 
-# Install the necessary dependencies including ODBC Driver 17 for SQL Server
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    unixodbc-dev \
-    curl \
-    gnupg \
-    apt-transport-https \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
+# Install ODBC dependencies
+RUN apt-get update && \
+    apt-get install -y gnupg2 apt-transport-https curl && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+    apt-get update && \
+    ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
 
 # Set the working directory in the container
 WORKDIR /app
