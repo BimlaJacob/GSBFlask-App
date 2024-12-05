@@ -107,3 +107,11 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+
+#loadingText {
+    font-size: 18px;
+    font-weight: bold;
+    color: #800000; /* Adjust color as needed */
+    margin-bottom: 10px;
+    text-align: center;
+}

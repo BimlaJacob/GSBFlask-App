@@ -1,8 +1,7 @@
-from app import db
-
+from extensions import db
 
 class Customer(db.Model):
-    __tablename__ = 'Customers'  # Explicitly specify the correct table name
+    __tablename__ = 'Customers'
     CustomerID = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(100), nullable=False)
     Email = db.Column(db.String(100), nullable=False, unique=True)
@@ -18,12 +17,13 @@ class Staff(db.Model):
 
 
 class Appointment(db.Model):
-    __tablename__ = 'Appointments'  # Matches the database table name
+    __tablename__ = 'Appointments'
     AppointmentID = db.Column(db.Integer, primary_key=True)
-    CustomerID = db.Column(db.Integer, nullable=False)
-    StaffID = db.Column(db.Integer, nullable=False)
-    AppointmentDate = db.Column(db.Date, nullable=False)  # Matches column name in database
-    AppointmentTime = db.Column(db.String(10), nullable=False)  # Matches column name in database
+    CustomerID = db.Column(db.Integer, db.ForeignKey('Customers.CustomerID'), nullable=False)
+    StaffID = db.Column(db.Integer, db.ForeignKey('Staff.StaffID'), nullable=False)
+    AppointmentDate = db.Column(db.Date, nullable=False)
+    AppointmentTime = db.Column(db.String(10), nullable=False)
 
-
-
+    # Relationships
+    customer = db.relationship('Customer', backref=db.backref('appointments', lazy=True))
+    staff = db.relationship('Staff', backref=db.backref('appointments', lazy=True))

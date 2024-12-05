@@ -1,0 +1,58 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="edit-container" style="margin: auto; max-width: 600px; padding: 20px;">
+    <h2 style="margin-bottom: 20px; text-align: center;">Edit Appointment</h2>
+
+    <!-- Navigation Buttons -->
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('admin.index') }}"
+           style="width: 200px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; text-align: center;">
+            Back to Main Menu
+        </a>
+        <a href="{{ url_for('appointment.index_view') }}"
+           style="width: 200px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; text-align: center;">
+            Back to Appointments
+        </a>
+    </div>
+
+    <!-- Edit Form -->
+    <form method="POST" action="{{ url_for('edit_appointment', id=appointment.AppointmentID) }}" style="display: flex; flex-direction: column; gap: 15px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <div style="text-align: left;">
+            <label for="AppointmentDate" style="font-weight: bold;">Appointment Date</label>
+            <input type="date" name="AppointmentDate" id="AppointmentDate" class="form-control" value="{{ appointment.AppointmentDate }}" required>
+        </div>
+
+        <div style="text-align: left;">
+            <label for="AppointmentTime" style="font-weight: bold;">Appointment Time</label>
+            <input type="time" name="AppointmentTime" id="AppointmentTime" class="form-control" value="{{ appointment.AppointmentTime }}" required>
+        </div>
+
+        <div style="text-align: left;">
+            <label for="CustomerID" style="font-weight: bold;">Customer</label>
+            <select name="CustomerID" id="CustomerID" class="form-control">
+                {% for customer in customers %}
+                <option value="{{ customer.CustomerID }}" {% if customer.CustomerID == appointment.CustomerID %}selected{% endif %}>{{ customer.Name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="text-align: left;">
+            <label for="StaffID" style="font-weight: bold;">Staff</label>
+            <select name="StaffID" id="StaffID" class="form-control">
+                {% for staff in staff_members %}
+                <option value="{{ staff.StaffID }}" {% if staff.StaffID == appointment.StaffID %}selected{% endif %}>{{ staff.Name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 5px;">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

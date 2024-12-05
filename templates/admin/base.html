@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Glass Slipper Bridal</h1>
+    </header>
+    <main>
+        {% block body %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Glass Slipper Bridal</p>
+    </footer>
+</body>
+</html>

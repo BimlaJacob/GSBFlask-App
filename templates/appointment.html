@@ -85,6 +85,26 @@
             color: #800000;
             text-align: center;
         }
+
+        #loadingModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+        }
+
+            #loadingModal p {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #555;
+            }
     </style>
 </head>
 <body>
@@ -111,6 +131,11 @@
         <div id="response"></div>
     </div>
 
+    <!-- Modal for Submitting -->
+    <div id="loadingModal">
+        <p>Submitting...</p>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         // Initialize the date picker with weekend exclusion
@@ -119,7 +144,6 @@
             dateFormat: "Y-m-d",
             disable: [
                 function (date) {
-               
                     return date.getDay() === 0 || date.getDay() === 6;
                 }
             ],
@@ -132,7 +156,6 @@
             fetch(`/api/timeslots?date=${date}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Available Time Slots:', data.available_slots);
                     const timeSelect = document.getElementById('time');
                     timeSelect.innerHTML = '<option value="" disabled selected>Select a time slot</option>';
                     data.available_slots.forEach(slot => {
@@ -145,8 +168,6 @@
                 .catch(err => console.error('Error fetching time slots:', err));
         }
 
-
-        // Submit the appointment form
         function submitAppointment() {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -158,6 +179,10 @@
                 return;
             }
 
+            // Show the modal
+            const loadingModal = document.getElementById('loadingModal');
+            loadingModal.style.display = 'block';
+
             fetch('/appointments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -165,15 +190,18 @@
             })
                 .then(res => res.json())
                 .then(data => {
+                    // Hide modal and show response
+                    loadingModal.style.display = 'none';
                     document.getElementById('response').innerText = data.message;
+
                     if (data.message === 'Appointment created successfully! Confirmation email sent.') {
-                        // Clear form fields on success
                         document.getElementById('appointmentForm').reset();
                         const timeSelect = document.getElementById('time');
                         timeSelect.innerHTML = '<option value="" disabled selected>Select a time slot</option>';
                     }
                 })
                 .catch(err => {
+                    loadingModal.style.display = 'none';
                     console.error('Error submitting appointment:', err);
                     document.getElementById('response').innerText = "An error occurred while booking your appointment.";
                 });
